@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Hansika 💖</title>
+
+<style>
+body{
+  margin:0;
+  text-align:center;
+  font-family:'Comic Sans MS',cursive;
+  background:#ffe6f0;
+}
+
+h1{margin-top:60px;}
+p{font-size:18px;}
+
+.btn{
+  padding:12px 25px;
+  border:none;
+  border-radius:12px;
+  margin:10px;
+  cursor:pointer;
+}
+
+#step2,#step3,#step4,#step5,#finalYesPage{
+  display:none;
+}
+
+.portrait{
+  width:220px;
+  border-radius:20px;
+  margin-top:20px;
+}
+
+/* NO BUTTON RUN */
+#noBtn{
+  position:absolute;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Hey Hansika ☺</h1>
+
+<!-- STEP 1 -->
+<div id="step1">
+  <p>When did I message you for the first time? ☺</p>
+  <input id="code1" placeholder="Enter date">
+  <br><br>
+  <button onclick="check1()" class="btn">Next</button>
+</div>
+
+<!-- STEP 2 -->
+<div id="step2">
+  <p>Now second date ☺<br>When did I send you the portrait?</p>
+  <input id="code2" placeholder="Enter date">
+  <br><br>
+  <button onclick="check2()" class="btn">Next</button>
+</div>
+
+<!-- STEP 3 (PORTRAIT) -->
+<div id="step3">
+  <img src="hansika.jpg" class="portrait">
+  <p>One more thing… what's our common interest? ☺</p>
+  <input id="code3" placeholder="Answer">
+  <br><br>
+  <button onclick="check3()" class="btn">Next</button>
+</div>
+
+<!-- STEP 4 (CONFESSION) -->
+<div id="step4">
+  <p style="font-size:20px;">
+    I don't really know how to say this,<br>
+    I've never said it before...<br><br>
+
+    but I felt like I should be honest.<br><br>
+
+    I like talking to you,<br>
+    I like you ☺<br><br>
+
+    no pressure
+  </p>
+
+  <h3>Do you feel the same? ☺</h3>
+  <button id="yesBtn" class="btn" style="background:green;color:white;">Yes 😊</button>
+  <button id="noBtn" class="btn" style="background:red;color:white;">No 😢</button>
+</div>
+
+<!-- FINAL YES PAGE -->
+<div id="finalYesPage">
+  <h1>You’re not just beautiful, you have such a wonderful vibe ☺</h1>
+
+  <p>
+    I appreciate that you shared your hobbies with me.<br>
+    Getting to know you has always been something I genuinely enjoy ☺
+  </p>
+
+  <p style="font-size:22px;">
+    You are supercalifragilisticexpialidocious ✨💖
+  </p>
+</div>
+
+<!-- SONG -->
+<audio id="song" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+// STEP 1
+function check1(){
+  if(code1.value==="0203"){
+    step1.style.display="none";
+    step2.style.display="block";
+  }
+}
+
+// STEP 2
+function check2(){
+  if(code2.value==="2103"){
+    step2.style.display="none";
+    step3.style.display="block";
+  }
+}
+
+// STEP 3
+function check3(){
+  if(code3.value.toLowerCase()==="movie"){
+    step3.style.display="none";
+    step4.style.display="block";
+  }
+}
+
+// NO BUTTON RUN
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",()=>{
+  noBtn.style.left=Math.random()*window.innerWidth+"px";
+  noBtn.style.top=Math.random()*window.innerHeight+"px";
+});
+
+// YES CLICK
+yesBtn.onclick=()=>{
+  step4.style.display="none";
+  finalYesPage.style.display="block";
+
+  song.play().catch(()=>alert("Tap to play music 🎵"));
+};
+</script>
+
+</body>
+</html>
