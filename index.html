@@ -7,9 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 
 <style>
-
-/* FIX FULL SCREEN */
-html, body {
+html,body{
   margin:0;
   padding:0;
   width:100%;
@@ -20,116 +18,91 @@ html, body {
   text-align:center;
 }
 
-/* BACKGROUND SLIDESHOW FULL FIX */
-#bgSlider {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -2;
-  overflow: hidden;
-}
-
-#bgSlider img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  object-position: center;
-  opacity: 0;
-  transition: opacity 2s ease-in-out;
-  animation: zoom 8s ease-in-out infinite;
-}
-
-/* CINEMATIC ZOOM */
-@keyframes zoom {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.08); }
-  100% { transform: scale(1); }
-}
-
-/* DARK OVERLAY */
-body::after {
-  content:"";
+/* BACKGROUND */
+#bgSlider{
   position:fixed;
+  width:100vw;
+  height:100vh;
   top:0;
   left:0;
+  z-index:-2;
+}
+#bgSlider img{
+  position:absolute;
+  width:100vw;
+  height:100vh;
+  object-fit:cover;
+  opacity:0;
+  transition:opacity 2s;
+  animation:zoom 8s infinite;
+}
+
+@keyframes zoom{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.08);}
+  100%{transform:scale(1);}
+}
+
+body::after{
+  content:"";
+  position:fixed;
   width:100%;
   height:100%;
   background:rgba(0,0,0,0.45);
-  z-index:-1;
 }
 
-/* GLASS CARD */
-.card {
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(15px);
-  padding: 25px;
-  border-radius: 20px;
-  margin: 20px;
-  animation: fadeIn 1s;
-}
-
-@keyframes fadeIn {
-  from {opacity:0; transform:translateY(20px);}
-  to {opacity:1;}
+/* CARD */
+.card{
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(15px);
+  padding:25px;
+  border-radius:20px;
+  margin:20px;
 }
 
 /* TEXT */
-h1 {font-size:clamp(24px,5vw,40px);}
-p {font-size:clamp(16px,3vw,20px);}
+h1{font-size:clamp(24px,5vw,40px);}
+p{font-size:clamp(16px,3vw,20px);}
 
 /* BUTTON */
-.btn {
+.btn{
   padding:12px 25px;
   border:none;
   border-radius:12px;
   margin:10px;
   cursor:pointer;
 }
-.btn:hover {
-  transform:scale(1.1);
-}
+.btn:hover{transform:scale(1.1);}
 
 /* PORTRAIT */
-.portrait {
+.portrait{
   width:220px;
   border-radius:20px;
-  margin-top:20px;
 }
 
-/* FLOATING HEARTS */
-.heart {
+/* HIDE */
+#step2,#step3,#step4,#finalYesPage{display:none;}
+
+/* NO BTN */
+#noBtn{position:absolute;}
+
+/* HEARTS */
+.heart{
   position:fixed;
-  font-size:20px;
-  animation: float 6s linear infinite;
+  animation:float 6s linear infinite;
 }
-@keyframes float {
-  from {transform:translateY(100vh);}
-  to {transform:translateY(-10vh);}
+@keyframes float{
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-10vh);}
 }
 
 /* CONFETTI */
-canvas {
+canvas{
   position:fixed;
   top:0;
   left:0;
   pointer-events:none;
 }
-
-/* HIDE STEPS */
-#step2,#step3,#step4,#finalYesPage {
-  display:none;
-}
-
-/* NO BUTTON */
-#noBtn {
-  position:absolute;
-}
-
 </style>
 </head>
 
@@ -137,10 +110,10 @@ canvas {
 
 <!-- BACKGROUND -->
 <div id="bgSlider">
-  <img src="photo1.jpeg">
-  <img src="photo2.jpeg">
-  <img src="photo3.jpeg">
-  <img src="photo4.jpeg">
+<img src="photo1.jpeg">
+<img src="photo2.jpeg">
+<img src="photo3.jpeg">
+<img src="photo4.jpeg">
 </div>
 
 <canvas id="confetti"></canvas>
@@ -151,57 +124,57 @@ canvas {
 
 <!-- STEP 1 -->
 <div id="step1">
-  <p>When did I message you for the first time? 😊</p>
-  <input id="code1">
-  <br><br>
-  <button onclick="check1()" class="btn">Next ➡️</button>
+<p>When did I message you for the first time? 😊</p>
+<input id="code1">
+<br><br>
+<button onclick="check1()" class="btn">Next ➡️</button>
 </div>
 
 <!-- STEP 2 -->
 <div id="step2">
-  <p>Now second date 😊<br>When did I send you the portrait?</p>
-  <input id="code2">
-  <br><br>
-  <button onclick="check2()" class="btn">Next ➡️</button>
+<p>Now second date 😊<br>When did I send you the portrait?</p>
+<input id="code2">
+<br><br>
+<button onclick="check2()" class="btn">Next ➡️</button>
 </div>
 
 <!-- STEP 3 -->
 <div id="step3">
-  <img src="hansika.jpeg" class="portrait">
-  <p>What's our common interest? 🎬</p>
-  <input id="code3">
-  <br><br>
-  <button onclick="check3()" class="btn">Next ➡️</button>
+<img src="hansika.jpeg" class="portrait">
+<p>What's our common interest? 🎬</p>
+<input id="code3">
+<br><br>
+<button onclick="check3()" class="btn">Next ➡️</button>
 </div>
 
 <!-- STEP 4 -->
 <div id="step4">
-  <p id="typing"></p>
+<p id="typing"></p>
 
-  <h3>Do you feel the same? 😊</h3>
-  <button id="yesBtn" class="btn" style="background:green;color:white;">Yes 💚</button>
-  <button id="noBtn" class="btn" style="background:red;color:white;">No 💔</button>
+<h3>Do you feel the same? 😊</h3>
+<button id="yesBtn" class="btn" style="background:green;color:white;">Yes 💚</button>
+<button id="noBtn" class="btn" style="background:red;color:white;">No 💔</button>
 </div>
 
 <!-- FINAL -->
 <div id="finalYesPage">
-  <h1>✨ You’re not just beautiful,you have such a wonderful vibe ✨</h1>
+<h1>✨ You’re not just beautiful,you have such a wonderful vibe ✨</h1>
 
-  <p>
-    I appreciate that you shared your hobbies with me 💖<br>
-    Getting to know you has always been something I genuinely enjoy ☺️
-  </p>
+<p>
+I appreciate that you shared your hobbies with me 💖<br>
+Getting to know you has always been something I genuinely enjoy ☺️
+</p>
 
-  <p style="font-size:22px;">
-    You are supercalifragilisticexpialidocious 💖✨
-  </p>
+<p style="font-size:22px;">
+You are supercalifragilisticexpialidocious 💖✨
+</p>
 </div>
 
 </div>
 
 <!-- MUSIC -->
 <audio id="song" loop>
-  <source src="song.mp3">
+<source src="song.mp3">
 </audio>
 
 <script>
@@ -210,41 +183,45 @@ canvas {
 let t="Hey Hansika 😊";
 let ti=0;
 function typeTitle(){
-  if(ti<t.length){
-    title.innerHTML+=t[ti++];
-    setTimeout(typeTitle,60);
-  }
-}
+if(ti<t.length){
+title.innerHTML+=t[ti++];
+setTimeout(typeTitle,60);
+}}
 typeTitle();
 
-// SLIDESHOW FIXED
+// SLIDESHOW
 const slides=document.querySelectorAll("#bgSlider img");
 let i=0;
-function showSlide(){
-  slides.forEach((img,index)=>{
-    img.style.opacity=(index===i)?"1":"0";
-  });
-  i=(i+1)%slides.length;
-}
-setInterval(showSlide,3000);
-showSlide();
+setInterval(()=>{
+slides.forEach((img,index)=>{
+img.style.opacity=index===i?"1":"0";
+});
+i=(i+1)%slides.length;
+},3000);
 
 // STEP LOGIC
 function check1(){
-  if(code1.value==="0203"){step1.style.display="none";step2.style.display="block";}
-}
-function check2(){
-  if(code2.value==="2103"){step2.style.display="none";step3.style.display="block";}
-}
-function check3(){
-  if(code3.value.toLowerCase()==="watching movies"){
-    step3.style.display="none";
-    step4.style.display="block";
-    typeMessage();
-  }
+if(code1.value==="0203"){step1.style.display="none";step2.style.display="block";}
 }
 
-// TYPING MESSAGE
+function check2(){
+if(code2.value==="2103"){step2.style.display="none";step3.style.display="block";}
+}
+
+function check3(){
+if(code3.value.toLowerCase()==="watching movies"){
+step3.style.display="none";
+step4.style.display="block";
+typeMessage();
+
+// 🎵 SONG START (CONFESSION)
+song.currentTime=0;
+song.volume=0.4;
+song.play().catch(()=>{});
+}
+}
+
+// MESSAGE
 let msg=`I don't really know how to say this...
 I've never said it before...
 
@@ -256,20 +233,20 @@ I like you 😊
 no pressure`;
 let mi=0;
 function typeMessage(){
-  if(mi<msg.length){
-    typing.innerHTML+=msg[mi++];
-    setTimeout(typeMessage,40);
-  }
+if(mi<msg.length){
+typing.innerHTML+=msg[mi++];
+setTimeout(typeMessage,40);
+}
 }
 
 // NO BUTTON
 noBtn.onclick=()=>{
-  alert("It's okay 😊 but I’ll try my best that you might like me someday 💖");
-  noBtn.style.transform="scale(0.6)";
+alert("It's okay 😊 but I’ll try my best that you might like me someday 💖");
+noBtn.style.transform="scale(0.6)";
 };
 noBtn.onmouseover=()=>{
-  noBtn.style.left=Math.random()*window.innerWidth+"px";
-  noBtn.style.top=Math.random()*window.innerHeight+"px";
+noBtn.style.left=Math.random()*window.innerWidth+"px";
+noBtn.style.top=Math.random()*window.innerHeight+"px";
 };
 
 // CONFETTI
@@ -280,37 +257,37 @@ canvas.height=innerHeight;
 
 let pieces=[];
 function confetti(){
-  for(let i=0;i<100;i++){
-    pieces.push({x:Math.random()*canvas.width,y:0,s:Math.random()*5});
-  }
+for(let i=0;i<100;i++){
+pieces.push({x:Math.random()*canvas.width,y:0,s:Math.random()*5});
+}
 }
 function draw(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  pieces.forEach(p=>{
-    ctx.fillRect(p.x,p.y,p.s,p.s);
-    p.y+=2;
-  });
-  requestAnimationFrame(draw);
+ctx.clearRect(0,0,canvas.width,canvas.height);
+pieces.forEach(p=>{
+ctx.fillRect(p.x,p.y,p.s,p.s);
+p.y+=2;
+});
+requestAnimationFrame(draw);
 }
 
 // HEARTS
 setInterval(()=>{
-  let h=document.createElement("div");
-  h.className="heart";
-  h.innerText="💖";
-  h.style.left=Math.random()*100+"%";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),6000);
+let h=document.createElement("div");
+h.className="heart";
+h.innerText="💖";
+h.style.left=Math.random()*100+"%";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),6000);
 },500);
 
-// YES CLICK
+// YES
 yesBtn.onclick=()=>{
-  step4.style.display="none";
-  finalYesPage.style.display="block";
+step4.style.display="none";
+finalYesPage.style.display="block";
 
-  confetti();
-  draw();
-  song.play();
+confetti();
+draw();
+// 🎵 song continues
 };
 
 </script>
