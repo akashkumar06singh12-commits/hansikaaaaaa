@@ -9,88 +9,131 @@
 <style>
 
 /* RESET */
-html, body {
+html,body{
   margin:0;
   padding:0;
-  width:100%;
   height:100%;
+  width:100%;
   font-family:'Poppins',sans-serif;
+  overflow:hidden;
 }
 
-/* BACKGROUND FULL FIX */
-#bgSlider {
-  position: fixed;
-  inset: 0;
-  z-index: -10;
-  overflow: hidden;
-}
-
-#bgSlider img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  transform: translate(-50%, -50%);
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 2s ease-in-out;
-}
-
-/* DARK OVERLAY */
-body::after {
-  content:"";
-  position: fixed;
+/* BACKGROUND */
+#bgSlider{
+  position:fixed;
   inset:0;
-  background: rgba(0,0,0,0.5);
-  z-index:-5;
+  z-index:-10;
+}
+#bgSlider img{
+  position:absolute;
+  top:50%;
+  left:50%;
+  min-width:100%;
+  min-height:100%;
+  transform:translate(-50%,-50%);
+  object-fit:cover;
+  opacity:0;
+  transition:opacity 2s;
+  animation:zoom 10s infinite;
 }
 
-/* CENTER CONTENT */
-body {
+@keyframes zoom{
+  0%{transform:translate(-50%,-50%) scale(1);}
+  50%{transform:translate(-50%,-50%) scale(1.08);}
+  100%{transform:translate(-50%,-50%) scale(1);}
+}
+
+/* OVERLAY */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.5);
+}
+
+/* CENTER */
+body{
   display:flex;
   justify-content:center;
   align-items:center;
-  min-height:100vh;
-  text-align:center;
   color:white;
+  text-align:center;
 }
 
 /* CARD */
-.card {
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(15px);
-  padding: 25px;
-  border-radius: 20px;
+.card{
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(18px);
+  padding:25px;
+  border-radius:20px;
   width:90%;
-  max-width:400px;
+  max-width:420px;
+  animation:fadeUp 1s ease;
+}
+
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(30px);}
+  to{opacity:1;}
 }
 
 /* TEXT */
-h1 {font-size:clamp(24px,5vw,40px);}
-p {font-size:clamp(16px,3vw,20px);}
+h1{font-size:clamp(24px,5vw,40px);}
+p{font-size:clamp(16px,3vw,20px);}
 
 /* BUTTON */
-.btn {
+.btn{
   padding:12px 25px;
   border:none;
   border-radius:12px;
   margin:10px;
   cursor:pointer;
 }
-.btn:hover {transform:scale(1.1);}
+.btn:hover{transform:scale(1.1);}
 
 /* PORTRAIT */
-.portrait {
+.portrait{
   width:200px;
   border-radius:20px;
 }
 
+/* TYPING */
+#typing{
+  font-size:clamp(18px,3vw,22px);
+  line-height:1.6;
+  text-shadow:0 0 10px white;
+}
+#typing::after{
+  content:"|";
+  animation:blink 1s infinite;
+}
+@keyframes blink{
+  0%,50%,100%{opacity:1;}
+  25%,75%{opacity:0;}
+}
+
+/* HEARTS */
+.heart{
+  position:fixed;
+  animation:float 6s linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-10vh);}
+}
+
+/* CONFETTI */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  pointer-events:none;
+}
+
 /* HIDE */
-#step2,#step3,#step4,#finalYesPage {display:none;}
+#step2,#step3,#step4,#finalYesPage{display:none;}
 
 /* NO BTN */
-#noBtn {position:absolute;}
+#noBtn{position:absolute;}
 
 </style>
 </head>
@@ -99,15 +142,17 @@ p {font-size:clamp(16px,3vw,20px);}
 
 <!-- BACKGROUND -->
 <div id="bgSlider">
-  <img src="photo1.jpeg">
-  <img src="photo2.jpeg">
-  <img src="photo3.jpeg">
-  <img src="photo4.jpeg">
+<img src="photo1.jpeg">
+<img src="photo2.jpeg">
+<img src="photo3.jpeg">
+<img src="photo4.jpeg">
 </div>
+
+<canvas id="confetti"></canvas>
 
 <div class="card">
 
-<h1>Hey Hansika 😊</h1>
+<h1 id="title"></h1>
 
 <!-- STEP 1 -->
 <div id="step1">
@@ -136,12 +181,7 @@ p {font-size:clamp(16px,3vw,20px);}
 
 <!-- STEP 4 -->
 <div id="step4">
-<p>
-I don't really know how to say this...<br><br>
-I like talking to you,<br>
-I like you 😊<br><br>
-no pressure
-</p>
+<p id="typing"></p>
 
 <h3>Do you feel the same? 😊</h3>
 <button id="yesBtn" class="btn" style="background:green;color:white;">Yes 💚</button>
@@ -150,12 +190,16 @@ no pressure
 
 <!-- FINAL -->
 <div id="finalYesPage">
-<h1>✨ You’re not just beautiful,you have such a wonderful vibe ✨</h1>
+<h1 style="text-shadow:0 0 15px pink;">✨ You’re not just beautiful,you have such a wonderful vibe ✨</h1>
+
 <p>
 I appreciate that you shared your hobbies with me 💖<br>
 Getting to know you has always been something I genuinely enjoy ☺️
 </p>
-<p>You are supercalifragilisticexpialidocious 💖✨</p>
+
+<p style="font-size:22px;">
+You are supercalifragilisticexpialidocious 💖✨
+</p>
 </div>
 
 </div>
@@ -166,52 +210,119 @@ Getting to know you has always been something I genuinely enjoy ☺️
 
 <script>
 
-// SLIDESHOW (FULL FIX)
+// TITLE TYPE
+let t="Hey Hansika 😊";
+let ti=0;
+function typeTitle(){
+  if(ti<t.length){
+    title.innerHTML+=t[ti++];
+    setTimeout(typeTitle,60);
+  }
+}
+typeTitle();
+
+// SLIDESHOW
 const slides=document.querySelectorAll("#bgSlider img");
 let i=0;
-
-function showSlide(){
+setInterval(()=>{
   slides.forEach((img,index)=>{
-    img.style.opacity=(index===i)?"1":"0";
+    img.style.opacity=index===i?"1":"0";
   });
   i=(i+1)%slides.length;
-}
-setInterval(showSlide,3000);
-showSlide();
+},3000);
 
 // STEP LOGIC
 function check1(){
-  if(code1.value==="0203"){
-    step1.style.display="none";
-    step2.style.display="block";
-  }
+  if(code1.value==="0203"){step1.style.display="none";step2.style.display="block";}
 }
 function check2(){
-  if(code2.value==="2103"){
-    step2.style.display="none";
-    step3.style.display="block";
-  }
+  if(code2.value==="2103"){step2.style.display="none";step3.style.display="block";}
 }
 function check3(){
   if(code3.value.toLowerCase()==="watching movies"){
     step3.style.display="none";
     step4.style.display="block";
+    typeMessage();
 
     song.currentTime=0;
+    song.volume=0.4;
     song.play();
   }
 }
 
+// TYPING MESSAGE
+let msg=`I don't really know how to say this...
+
+I've never said it before...
+
+but I felt like I should be honest.
+
+I like talking to you,
+I like you 😊
+
+no pressure`;
+
+let mi=0;
+function typeMessage(){
+  typing.innerHTML="";
+  mi=0;
+  function type(){
+    if(mi<msg.length){
+      typing.innerHTML+=msg[mi++];
+      setTimeout(type,40);
+    }
+  }
+  type();
+}
+
 // NO BTN
+noBtn.onclick=()=>{
+  alert("It's okay 😊 but I’ll try my best that you might like me someday 💖");
+  noBtn.style.transform="scale(0.6)";
+};
 noBtn.onmouseover=()=>{
   noBtn.style.left=Math.random()*window.innerWidth+"px";
   noBtn.style.top=Math.random()*window.innerHeight+"px";
 };
 
+// CONFETTI
+const canvas=document.getElementById("confetti");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+let pieces=[];
+function confetti(){
+  for(let i=0;i<100;i++){
+    pieces.push({x:Math.random()*canvas.width,y:0,s:Math.random()*5});
+  }
+}
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  pieces.forEach(p=>{
+    ctx.fillRect(p.x,p.y,p.s,p.s);
+    p.y+=2;
+  });
+  requestAnimationFrame(draw);
+}
+
+// HEARTS
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerText="💖";
+  h.style.left=Math.random()*100+"%";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},500);
+
 // YES
 yesBtn.onclick=()=>{
   step4.style.display="none";
   finalYesPage.style.display="block";
+
+  confetti();
+  draw();
 };
 
 </script>
