@@ -7,108 +7,129 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 
 <style>
-body{
+
+/* FIX FULL SCREEN */
+html, body {
   margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
   font-family:'Poppins',sans-serif;
   color:white;
   text-align:center;
-  overflow:hidden;
 }
 
-/* BACKGROUND SLIDESHOW */
-#bgSlider{
-  position:fixed;
-  width:100%;
-  height:100%;
-  top:0;
-  left:0;
-  z-index:-2;
+/* BACKGROUND SLIDESHOW FULL FIX */
+#bgSlider {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  overflow: hidden;
 }
-#bgSlider img{
-  position:absolute;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  opacity:0;
-  transition:opacity 2s;
-  filter:brightness(0.7);
+
+#bgSlider img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+  animation: zoom 8s ease-in-out infinite;
+}
+
+/* CINEMATIC ZOOM */
+@keyframes zoom {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
 }
 
 /* DARK OVERLAY */
-body::after{
+body::after {
   content:"";
   position:fixed;
+  top:0;
+  left:0;
   width:100%;
   height:100%;
-  background:rgba(0,0,0,0.4);
+  background:rgba(0,0,0,0.45);
   z-index:-1;
 }
 
-/* CARD */
-.card{
-  background:rgba(255,255,255,0.1);
-  backdrop-filter:blur(15px);
-  padding:25px;
-  border-radius:20px;
-  margin:20px;
-  animation:fadeIn 1s;
+/* GLASS CARD */
+.card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  padding: 25px;
+  border-radius: 20px;
+  margin: 20px;
+  animation: fadeIn 1s;
 }
 
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1;}
+@keyframes fadeIn {
+  from {opacity:0; transform:translateY(20px);}
+  to {opacity:1;}
 }
 
-h1{font-size:clamp(24px,5vw,40px);}
-p{font-size:clamp(16px,3vw,20px);}
+/* TEXT */
+h1 {font-size:clamp(24px,5vw,40px);}
+p {font-size:clamp(16px,3vw,20px);}
 
 /* BUTTON */
-.btn{
+.btn {
   padding:12px 25px;
   border:none;
   border-radius:12px;
   margin:10px;
   cursor:pointer;
 }
-.btn:hover{
+.btn:hover {
   transform:scale(1.1);
 }
 
 /* PORTRAIT */
-.portrait{
+.portrait {
   width:220px;
   border-radius:20px;
   margin-top:20px;
 }
 
-/* HEART FLOAT */
-.heart{
+/* FLOATING HEARTS */
+.heart {
   position:fixed;
   font-size:20px;
-  animation:float 6s linear infinite;
+  animation: float 6s linear infinite;
 }
-@keyframes float{
-  from{transform:translateY(100vh);}
-  to{transform:translateY(-10vh);}
+@keyframes float {
+  from {transform:translateY(100vh);}
+  to {transform:translateY(-10vh);}
 }
 
 /* CONFETTI */
-canvas{
+canvas {
   position:fixed;
   top:0;
   left:0;
   pointer-events:none;
 }
 
-/* HIDE */
-#step2,#step3,#step4,#finalYesPage{
+/* HIDE STEPS */
+#step2,#step3,#step4,#finalYesPage {
   display:none;
 }
 
-/* NO BTN */
-#noBtn{
+/* NO BUTTON */
+#noBtn {
   position:absolute;
 }
+
 </style>
 </head>
 
@@ -131,7 +152,7 @@ canvas{
 <!-- STEP 1 -->
 <div id="step1">
   <p>When did I message you for the first time? 😊</p>
-  <input id="code1" placeholder="Enter date">
+  <input id="code1">
   <br><br>
   <button onclick="check1()" class="btn">Next ➡️</button>
 </div>
@@ -139,7 +160,7 @@ canvas{
 <!-- STEP 2 -->
 <div id="step2">
   <p>Now second date 😊<br>When did I send you the portrait?</p>
-  <input id="code2" placeholder="Enter date">
+  <input id="code2">
   <br><br>
   <button onclick="check2()" class="btn">Next ➡️</button>
 </div>
@@ -148,7 +169,7 @@ canvas{
 <div id="step3">
   <img src="hansika.jpeg" class="portrait">
   <p>What's our common interest? 🎬</p>
-  <input id="code3" placeholder="Answer">
+  <input id="code3">
   <br><br>
   <button onclick="check3()" class="btn">Next ➡️</button>
 </div>
@@ -185,7 +206,7 @@ canvas{
 
 <script>
 
-// TITLE TYPING
+// TITLE
 let t="Hey Hansika 😊";
 let ti=0;
 function typeTitle(){
@@ -196,15 +217,17 @@ function typeTitle(){
 }
 typeTitle();
 
-// SLIDESHOW
+// SLIDESHOW FIXED
 const slides=document.querySelectorAll("#bgSlider img");
 let i=0;
-setInterval(()=>{
+function showSlide(){
   slides.forEach((img,index)=>{
-    img.style.opacity=index===i?"1":"0";
+    img.style.opacity=(index===i)?"1":"0";
   });
   i=(i+1)%slides.length;
-},3000);
+}
+setInterval(showSlide,3000);
+showSlide();
 
 // STEP LOGIC
 function check1(){
@@ -221,14 +244,14 @@ function check3(){
   }
 }
 
-// MESSAGE TYPING
+// TYPING MESSAGE
 let msg=`I don't really know how to say this...
 I've never said it before...
 
 but I felt like I should be honest.
 
-I like talking to you
-and I like you 😊
+I like talking to you,
+I like you 😊
 
 no pressure`;
 let mi=0;
@@ -239,7 +262,7 @@ function typeMessage(){
   }
 }
 
-// NO BUTTON RUN + MESSAGE
+// NO BUTTON
 noBtn.onclick=()=>{
   alert("It's okay 😊 but I’ll try my best that you might like me someday 💖");
   noBtn.style.transform="scale(0.6)";
